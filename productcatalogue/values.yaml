@@ -4,7 +4,7 @@ image:
 deployment:
   name: productcatalogue
   replicaCount: 1
-  port: 8010
+  port: 8020
   containerName: productcatalogue
   containerPort: 8020
   resources:
