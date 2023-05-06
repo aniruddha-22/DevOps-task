@@ -47,3 +47,4 @@ jobs:
             service_name=$(basename "$dir")
             helm upgrade --install "$service_name" "${{ env.HELM_CHART_REPO }}/$service_name" --namespace default --set image.repository="${{ env.GCR_REGISTRY }}/$service_name",image.tag="$GITHUB_SHA"
           done
+          
