@@ -1,0 +1,38 @@
+image:
+  repository: gcr.io/DevOps-task
+
+deployment:
+  name: shopfront
+  replicaCount: 1
+  port: 8010
+  containerName: shopfront
+  containerPort: 8010
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+
+service:
+  name: shopfront
+  type: ClusterIP
+  port: 8010
+
+ingress:
+  name: shopfront
+  host: shopfront.example.com
+  path: /
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  tls:
+    - secretName: example-tls
+      hosts:
+        - shopfront.example.com
+
+certificate:
+  name: example-tls
+  secretName: example-tls-secret
+  dnsNames:
+    - shopfront.example.com

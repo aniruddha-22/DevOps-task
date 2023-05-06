@@ -1,0 +1,38 @@
+image:
+  repository: gcr.io/DevOps-task
+
+deployment:
+  name: productcatalogue
+  replicaCount: 1
+  port: 8010
+  containerName: productcatalogue
+  containerPort: 8020
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+
+service:
+  name: productcatalogue
+  type: ClusterIP
+  port: 8020
+
+ingress:
+  name: productcatalogue
+  host: productcatalogue.example.com
+  path: /
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  tls:
+    - secretName: example-tls
+      hosts:
+        - productcatalogue.example.com
+
+certificate:
+  name: example-tls
+  secretName: example-tls-secret
+  dnsNames:
+    - productcatalogue.example.com

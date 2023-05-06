@@ -1,0 +1,38 @@
+image:
+  repository: gcr.io/DevOps-task
+
+deployment:
+  name: stockmanager
+  replicaCount: 1
+  port: 8030
+  containerName: stockmanager
+  containerPort: 8030
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+
+service:
+  name: shopfront
+  type: ClusterIP
+  port: 8030
+
+ingress:
+  name: stockmanager
+  host: stockmanager.example.com
+  path: /
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  tls:
+    - secretName: example-tls
+      hosts:
+        - stockmanager.example.com
+
+certificate:
+  name: example-tls
+  secretName: example-tls-secret
+  dnsNames:
+    - stockmanager.example.com

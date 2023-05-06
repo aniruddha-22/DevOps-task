@@ -1,0 +1,17 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "fullname" . }}-cert
+  namespace: {{ .Release.Namespace }}
+spec:
+  secretName: {{ include "fullname" . }}-tls
+  duration: 2160h # 90 days
+  renewBefore: 360h # 15 days
+  dnsNames:
+    - {{ .Values.ingress.host }}
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
+
+
+##assuming that letsencrypt is already in use
